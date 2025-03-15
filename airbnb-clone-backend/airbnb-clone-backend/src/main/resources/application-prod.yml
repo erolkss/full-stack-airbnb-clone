@@ -2,7 +2,7 @@ logging:
   level:
     ROOT: info
     org.hibernate.SQL: INFO
-    fr.codecake.airbnbcloneback: INFO
+    br.com.ero.airbnbcloneback: INFO
 
 spring:
   datasource:
@@ -10,6 +10,9 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         default_schema: airbnb_clone
