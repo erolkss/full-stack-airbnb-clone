@@ -4,6 +4,7 @@ import { State } from './model/state.model';
 import { User } from './model/user.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class AuthService {
           }
         }
       })
+  }
+
+  login(): void {
+    location.href = `${location.origin}${this.location.prepareExternalUrl("oauth2/authorization/okta")}`;
   }
 
   isAuthenticated(): boolean {
