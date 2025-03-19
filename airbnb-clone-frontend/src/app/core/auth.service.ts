@@ -65,4 +65,14 @@ export class AuthService {
     return this.http.get<User>(`${environment.API_URL}/auth/get-authenticated-user`, { params })
   }
 
+  hasAnyAuthority(authorities: string[] | string): boolean {
+    if (this.fetchUser$().value!.email === this.notConnected) {
+      return false;
+    }
+    if (!Array.isArray(authorities)) {
+      authorities = [authorities];
+    }
+    return this.fetchUser$().value!.authorities!
+      .some((authority: string) => authorities.includes(authority));
+  }
 }
