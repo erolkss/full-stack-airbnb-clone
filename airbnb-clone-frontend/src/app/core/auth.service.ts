@@ -41,6 +41,17 @@ export class AuthService {
     location.href = `${location.origin}${this.location.prepareExternalUrl("oauth2/authorization/okta")}`;
   }
 
+  logout(): void {
+    this.http.post(`${environment.API_URL}/auth/logout`, {})
+      .subscribe({
+        next: (response: any) => {
+          this.fetchUser$.set(State.Builder<User>()
+            .forSuccess({ email: this.notConnected }));
+          location.href = response.logoutUrl
+        }
+      })
+  }
+
   isAuthenticated(): boolean {
     if (this.fetchUser$().value) {
       return this.fetchUser$().value!.email !== this.notConnected;
